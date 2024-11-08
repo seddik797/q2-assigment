@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+
+class GroceryItemOrder {
+    private String name;
+    private double pricePerUnit;
+    private int quantity;
+
+    
+    public GroceryItemOrder(String name, double pricePerUnit, int quantity) {
+        this.name = name;
+        this.pricePerUnit = pricePerUnit;
+        this.quantity = quantity;
+    }
+
+    public double getCost() {
+        return pricePerUnit * quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+}
+
+class GroceryList {
+    private ArrayList<GroceryItemOrder> orders;
+    private int size;
+
+
+    public GroceryList() {
+        this.orders = new ArrayList<>();
+        this.size = 0;
+    }
+
+    public void add(GroceryItemOrder item) {
+        if (size < 10) {  // Check if the list has fewer than 10 items
+            orders.add(item);
+            size++;
+        } else {
+            System.out.println("List is full! Cannot add more items.");
+        }
+    }
+
+    public double getTotalCost() {
+        double totalCost = 0.0;
+        for (GroceryItemOrder item : orders) {
+            totalCost += item.getCost();
+        }
+        return totalCost;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void displayList() {
+        for (GroceryItemOrder item : orders) {
+            System.out.println("Item: " + item.getName() + ", Quantity: " + item.getQuantity() +
+                               ", Price per unit: $" + item.getPricePerUnit() + ", Total cost: $" + item.getCost());
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+      
+        GroceryList groceryList = new GroceryList();
+        
+        GroceryItemOrder item1 = new GroceryItemOrder("Cookies", 2.30, 4); // 4 boxes of cookies
+        GroceryItemOrder item2 = new GroceryItemOrder("Milk", 1.50, 2); // 2 liters of milk
+        GroceryItemOrder item3 = new GroceryItemOrder("Bananas", 0.60, 6); // 6 bananas
+
+        groceryList.add(item1);
+        groceryList.add(item2);
+        groceryList.add(item3);
+
+        groceryList.displayList();
+        
+        System.out.println("Total cost of all items: $" + groceryList.getTotalCost());
+    }
+}
